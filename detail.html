@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script src="https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.js"></script>
+<link href="https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.css" rel="stylesheet"/>
+    <style>
+        a {
+            style: none;
+            font-size: 20px;
+            text-decoration: none;
+            color: black;
+        }
+
+        a:link {
+            text-decoration: none;
+            style: none;
+            font-size: 20px;
+        }
+
+        a:visited {
+            text-decoration: none;
+            style: none;
+            font-size: 20px;
+        }
+
+     
+        
+    </style>
+</head>
+
+<body>
+
+    <article>
+        <main>
+            <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/3/movie/movie_id?api_key=API_KEY&language=language&append_to_response=videos,credits</a>
+            <br>
+            <br>
+            <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/<br>3/<br>movie/<br>"movie_id"?<br>api_key="API_KEY"&<br>language="language"&<br>"append_to_response=videos,credits"</a>
+
+            <br>
+            <input id="queryInput" type="text">
+            <input id="lenguageInput" type="text">
+            <button id="searchButton">Buscar</button>
+
+            <section id="resultados" class="gallery">
+            </section>
+
+        </main>
+<script>
+const API_KEY = "b7048181b82a3678ad874fa00559a427";
+    let language = "es-ES";
+    let movie_id;
+    
+    let inputSearch;
+    let button;
+    let lenguageInput;
+    function getInfo() {
+        //informacion de la pelicula
+        let URL_THEMOVIEDBINFOMOVIE = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=${language}&append_to_response=videos,credits`;
+        enlaceA.href=URL_THEMOVIEDBINFOMOVIE;
+        enlaceA.innerHTML=`<span class="red">https://api.themoviedb.org/</span><span class="blue">3/</span><span class="black">movie/${movie_id}?</span><span class="red">api_key=${API_KEY}&</span><span class="blue">language=${language}</span><span class="black">&append_to_response=videos,credits</span>`;
+        fetch(URL_THEMOVIEDBINFOMOVIE)
+            .then(response => response.json())
+            .then(data => {
+                let busqueda = document.getElementById("resultados");
+                busqueda.innerHTML = "";
+                console.log(data);
+                $(function(){
+                    $('#resultados').jsonViewer(data);
+                  });
+            });
+        }
+    queryInput = document.getElementById("queryInput");
+    lenguageInput = document.getElementById("lenguageInput");
+    searchButton = document.getElementById("searchButton");
+    enlaceA = document.getElementById("enlace");
+    
+    searchButton.addEventListener("click", () => {
+        movie_id = queryInput.value;
+        language=lenguageInput.value;
+        getInfo();
+    });
+    
+    queryInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchButton.click();
+        }
+    });
+    
+    
+    
+    </script>
+</body>
+
+</html>

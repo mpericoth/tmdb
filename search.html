@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script src="https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.js"></script>
+<link href="https://rawgit.com/abodelot/jquery.json-viewer/master/json-viewer/jquery.json-viewer.css" rel="stylesheet"/>
+    <style>
+        a {
+            style: none;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        a:link {
+            text-decoration: none;
+            style: none;
+            font-size: 20px;
+        }
+
+        a:visited {
+            text-decoration: none;
+            style: none;
+            font-size: 20px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .black {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+   
+    <article>
+        <main>
+            <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/3/search/movie?include_adult=false&query=&language=language&api_key=api_key</a>
+                <br> <br>
+                <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/ <br>3/ <br>search/ <br>movie? <br>include_adult="false" <br>&query="query" <br>&language="language" <br>&api_key="api_key"</a>
+            
+            <br>
+            <input id="queryInput" type="text">
+            <input id="lenguageInput" type="text">
+            <button id="searchButton">Buscar</button>
+
+
+            <section id="resultados" class="gallery">
+            </section>
+
+        </main>
+<script>const API_KEY = "b7048181b82a3678ad874fa00559a427";
+    let language = "es-ES";
+    let type_media = "movie";
+    let adult = false;
+    let query;
+    let inputSearch;
+    let button;
+    let lenguageInput;
+    
+    function getMovies() {
+        let URL_THEMOVIEDBSEARCH = `https://api.themoviedb.org/3/search/${type_media}?include_adult=${adult}&query=${query}&language=${language}&api_key=${API_KEY}`;
+        enlaceA.href=URL_THEMOVIEDBSEARCH;
+        enlaceA.innerHTML=`https://api.themoviedb.org/3/search/movie?include_adult="false"&query=${query}&language=${language}&api_key=${API_KEY}`;
+    
+        fetch(URL_THEMOVIEDBSEARCH)
+            .then(response => response.json())
+            .then(data => {
+                let busqueda = document.getElementById("resultados");
+                busqueda.innerHTML = "";
+                console.log(data);
+                $(function(){
+                    $('#resultados').jsonViewer(data);
+                  });
+           
+            });
+    }
+    
+    queryInput = document.getElementById("queryInput");
+    lenguageInput = document.getElementById("lenguageInput");
+    searchButton = document.getElementById("searchButton");
+    enlaceA = document.getElementById("enlace");
+    
+    searchButton.addEventListener("click", () => {
+        query = queryInput.value;
+        language=lenguageInput.value;
+        getMovies();
+    });
+    
+    queryInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            searchButton.click();
+        }
+    });
+    
+    </script>
+</body>
+
+</html>
