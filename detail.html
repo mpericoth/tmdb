@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,7 @@
             <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/3/movie/movie_id?api_key=API_KEY&language=language&append_to_response=videos,credits</a>
             <br>
             <br>
-            <a id="enlace" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/<br>3/<br>movie/<br>"movie_id"?<br>api_key="API_KEY"&<br>language="language"&<br>"append_to_response=videos,credits"</a>
+            <a id="enlace2" href="" target="_blank" rel="noopener noreferrer">https://api.themoviedb.org/<br>3/<br>movie/<br>"movie_id"?<br>api_key="API_KEY"&<br>language="language"&<br>"append_to_response=videos,credits"</a>
 
             <br>
             <input id="queryInput" type="text">
@@ -57,13 +58,16 @@ const API_KEY = "b7048181b82a3678ad874fa00559a427";
     let movie_id;
     
     let inputSearch;
-    let button;
+    let button; 
     let lenguageInput;
     function getInfo() {
         //informacion de la pelicula
         let URL_THEMOVIEDBINFOMOVIE = `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=${language}&append_to_response=videos,credits`;
         enlaceA.href=URL_THEMOVIEDBINFOMOVIE;
         enlaceA.innerHTML=`<span class="red">https://api.themoviedb.org/</span><span class="blue">3/</span><span class="black">movie/${movie_id}?</span><span class="red">api_key=${API_KEY}&</span><span class="blue">language=${language}</span><span class="black">&append_to_response=videos,credits</span>`;
+
+        enlace2A.innerHTML=`https://api.themoviedb.org/<br>3/<br>movie/<br>${movie_id}?<br>api_key=${API_KEY}&<br>language=${language}&<br>append_to_response=videos,credits`;
+
         fetch(URL_THEMOVIEDBINFOMOVIE)
             .then(response => response.json())
             .then(data => {
@@ -79,6 +83,7 @@ const API_KEY = "b7048181b82a3678ad874fa00559a427";
     lenguageInput = document.getElementById("lenguageInput");
     searchButton = document.getElementById("searchButton");
     enlaceA = document.getElementById("enlace");
+    enlace2A = document.getElementById("enlace2");
     
     searchButton.addEventListener("click", () => {
         movie_id = queryInput.value;
