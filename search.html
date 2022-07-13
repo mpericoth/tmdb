@@ -71,7 +71,7 @@
     function getMovies() {
         let URL_THEMOVIEDBSEARCH = `https://api.themoviedb.org/3/search/${type_media}?include_adult=${adult}&query=${query}&language=${language}&api_key=${API_KEY}`;
         enlaceA.href=URL_THEMOVIEDBSEARCH;
-        enlaceA.innerHTML=`https://api.themoviedb.org/3/search/movie?include_adult="false"&query=${query}&language=${language}&api_key=${API_KEY}`;
+        enlaceA.innerHTML=`https://api.themoviedb.org/3/search/movie?include_adult=false&query=${query}&language=${language}&api_key=${API_KEY}`;
     
         fetch(URL_THEMOVIEDBSEARCH)
             .then(response => response.json())
